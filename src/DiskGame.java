@@ -81,7 +81,7 @@ public class DiskGame{
      */
     public void setNumDisks(double value){
         /*# YOUR CODE HERE */
-
+        this.numDisks = (int) value; // converts double from silder into int
     }
 
     /**
@@ -90,7 +90,7 @@ public class DiskGame{
      */
     public void setNumShots(double value){
         /*# YOUR CODE HERE */
-
+        this.numShots = (int) value;
     }
 
     /**
@@ -114,7 +114,16 @@ public class DiskGame{
      */
     public void initialiseDisks(){
         /*# YOUR CODE HERE */
+        this.disks = new ArrayList<Disk>();
 
+        for (int i = 0; i < this.numDisks; i++) {
+            double x = Math.random() * GAME_WIDTH; // random x for each disk between the game width
+            double y = Math.random() * SHOOTING_RANGE_Y; // random y for each disk between the shooting range
+
+            Disk d = new Disk(x, y); // make a new disk object
+            this.disks.add(d); // add it to the arrarylist
+            d.draw();
+        }   
     }
 
     /**
@@ -261,7 +270,9 @@ public class DiskGame{
         // Redraw the disks, and
         // the pile of small red squares illustrating the remaining rounds
         /*# YOUR CODE HERE */
-
+        for (Disk d : this.disks) {
+            d.draw();
+        }
     }
 
     /**
