@@ -65,6 +65,11 @@ public class DiskGame{
      */
     public void setupGUI(){
         /*# YOUR CODE HERE */
+        UI.addSlider("Number of Disks", 1, 100, this.numDisks, this::setNumDisks);
+        UI.addSlider("Number of Shots", 1, 100, this.numShots, this::setNumShots);
+        
+        UI.addButton("Restart", this::startGame);
+        UI.setMouseMotionListener(this::doMouse);
 
         UI.addButton("Quit", UI::quit);
         UI.setDivider(0);
