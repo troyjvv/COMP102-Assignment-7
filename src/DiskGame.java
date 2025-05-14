@@ -270,9 +270,11 @@ public class DiskGame{
         // Redraw the disks, and
         // the pile of small red squares illustrating the remaining rounds
         /*# YOUR CODE HERE */
-        for (Disk d : this.disks) {
+        for (Disk d: this.disks) { //redraw all disks
             d.draw();
         }
+
+        
     }
 
     /**
