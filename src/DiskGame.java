@@ -67,7 +67,7 @@ public class DiskGame{
         /*# YOUR CODE HERE */
         UI.addSlider("Number of Disks", 1, 100, this.numDisks, this::setNumDisks);
         UI.addSlider("Number of Shots", 1, 100, this.numShots, this::setNumShots);
-        
+
         UI.addButton("Restart", this::startGame);
         UI.setMouseMotionListener(this::doMouse);
 
@@ -123,7 +123,7 @@ public class DiskGame{
             Disk d = new Disk(x, y); // make a new disk object
             this.disks.add(d); // add it to the arrarylist
             d.draw();
-        }   
+        }
     }
 
     /**
@@ -145,11 +145,11 @@ public class DiskGame{
     /**
      * Is the given position within the firing zone
      */
-    public boolean isWithinFiringZone(double x, double y){
+    public boolean isWithinFiringZone(double x, double y) {
         // an easy approximation is to pretend it is the enclosing rectangle.
         // It is nicer to do a little bit of geometry and get it right
-        return (x >= GUN_X-SHOOTING_CIRCLE/2) && (y >= GUN_Y-SHOOTING_CIRCLE/2)
-        && (x <= GUN_X + SHOOTING_CIRCLE/2) && (y <= GUN_Y);
+        return (x >= GUN_X - SHOOTING_CIRCLE / 2) && (y >= GUN_Y - SHOOTING_CIRCLE / 2)
+                && (x <= GUN_X + SHOOTING_CIRCLE / 2) && (y <= GUN_Y);
     }
 
     /**
@@ -183,9 +183,9 @@ public class DiskGame{
             //check if it hits a disk... 
             /*# YOUR CODE HERE */
             Disk hit = getHitDisk(shotPosX, shotPosY);
-            if (hit!= null){
+            if (hit != null) {
                 hit.damage();// if hit - damage
-                if (hit.isBroken()){
+                if (hit.isBroken()) {
                     this.damageNeighbours(hit); // if disk is broken - damage neighbors
                 }
                 break; // stop shot once hits disk
@@ -194,11 +194,11 @@ public class DiskGame{
         }
         this.redraw();
         this.updateScore();
-        //If game is over, print out the score
-        if ((this.haveAllDisksExploded() || this.shotsRemaining < 1)){
+        // If game is over, print out the score
+        if ((this.haveAllDisksExploded() || this.shotsRemaining < 1)) {
             UI.setColor(Color.red);
             UI.setFontSize(24);
-            UI.drawString("Your final score: " + this.score, GAME_WIDTH*1.0/3.0, SHOOTING_RANGE_Y*1.3);
+            UI.drawString("Your final score: " + this.score, GAME_WIDTH * 1.0 / 3.0, SHOOTING_RANGE_Y * 1.3);
         }
     }
 
@@ -254,12 +254,12 @@ public class DiskGame{
         /*# YOUR CODE HERE */
         int totDisksBroken = 0;
         for (Disk disk : disks) {
-            if (disk.isBroken()){
+            if (disk.isBroken()) {
                 totDisksBroken++;
             }
-            
+
         }
-        if (totDisksBroken == this.numDisks){ // if the total disks broken is the same as number of disks
+        if (totDisksBroken == this.numDisks) { // if the total disks broken is the same as number of disks
             return true;
         } else {
             return false;
@@ -309,7 +309,7 @@ public class DiskGame{
         // Redraw the disks, and
         // the pile of small red squares illustrating the remaining rounds
         /*# YOUR CODE HERE */
-        for (Disk d: this.disks) { //redraw all disks
+        for (Disk d : this.disks) { // redraw all disks
             d.draw();
         }
 
