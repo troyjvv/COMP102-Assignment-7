@@ -252,9 +252,19 @@ public class DiskGame{
      */
     public boolean haveAllDisksExploded(){
         /*# YOUR CODE HERE */
-
+        int totDisksBroken = 0;
+        for (Disk disk : disks) {
+            if (disk.isBroken()){
+                totDisksBroken++;
+            }
+            
+        }
+        if (totDisksBroken == this.numDisks){ // if the total disks broken is the same as number of disks
+            return true;
+        } else {
+            return false;
+        }
     }
-
     /**
      * Update the score field, by summing the scores of each disk
      * Score is 150 for exploded disks, 50 for disks with 2 hits, and 20 for disks with 1 hit.
@@ -263,7 +273,12 @@ public class DiskGame{
         // Hint: Each Disk can report how many points they are worth:
         // Iterate through the ArrayList, adding up the total score of the disks.
         /*# YOUR CODE HERE */
-
+        double totalScore = 0;
+        for (Disk disk : disks) { // for each disk count up the score and add it to a total
+            totalScore += disk.score();
+        }
+        this.score = totalScore; // then update it to the private score declaration
+        System.out.println("Current score: " + this.score);
     }
 
 
