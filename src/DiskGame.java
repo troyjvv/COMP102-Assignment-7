@@ -131,7 +131,15 @@ public class DiskGame{
      */
     public void doMouse(String action, double x, double y){
         /*# YOUR CODE HERE */
-
+        if (action.equals("released")) {
+            if (this.shotsRemaining > 0) {
+                if (this.isWithinFiringZone(x, y)) {
+                    this.fireShot(x, y);
+                }
+            } else {
+                UI.println("Game over");
+            }
+        }
     }
 
     /**
@@ -174,7 +182,14 @@ public class DiskGame{
             UI.drawLine(GUN_X, GUN_Y, shotPosX, shotPosY);
             //check if it hits a disk... 
             /*# YOUR CODE HERE */
-
+            Disk hit = getHitDisk(shotPosX, shotPosY);
+            if (hit!= null){
+                hit.damage();// if hit - damage
+                if (hit.isBroken()){
+                    this.damageNeighbours(hit); // if disk is broken - damage neighbors
+                }
+                break; // stop shot once hits disk
+            }
             UI.sleep(1);
         }
         this.redraw();
@@ -201,7 +216,12 @@ public class DiskGame{
      */
     public Disk getHitDisk(double shotX, double shotY){
         /*# YOUR CODE HERE */
-
+        for (Disk disk : this.disks) {
+            if (disk.isOn(shotX, shotY)) {
+                return disk;
+            }
+        }
+        return null;
     }
 
     /**
@@ -219,7 +239,11 @@ public class DiskGame{
      */
     public void damageNeighbours(Disk disk){
         /*# YOUR CODE HERE */
-
+        for (Disk d : this.disks) {
+            if (d != disk && !d.isBroken() && disk.isWithinRange(d)) {
+                d.damage();
+            }
+        }
     }
 
     /**
