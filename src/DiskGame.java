@@ -312,8 +312,18 @@ public class DiskGame{
         for (Disk d : this.disks) { // redraw all disks
             d.draw();
         }
+        double shotindX = 5;
+        double shotindY = GUN_Y - 10; 
+        UI.setColor(Color.red);
+        for (int i = 0; i < numShots; i++) {
+            UI.fillRect(shotindX, shotindY,6, 6);
+            shotindX += 8;
 
-        
+            if ((i + 1) % 10 == 0) {  // after every 10 shots
+            shotindX = 5;        // reset x position
+            shotindY -= 8;       // move up
+            }
+        }
     }
 
     /**
