@@ -44,11 +44,11 @@ public class Disk {
     /**
      * Construct a new Disk object.
      * Parameters are the coordinates of the center of the disk.
-     */
+     *
     public Disk(double x, double y) {
         this.centerX = x;
         this.centerY = y;
-    }
+    }/
 
     /** B-GRADE LEVEL
      *
@@ -57,6 +57,9 @@ public class Disk {
      */
     public Disk(double x, double y, int d) {
         /*# YOUR CODE HERE */
+        this.centerX = x;
+        this.centerY = y;
+        this.damage = d;
 
     }
 

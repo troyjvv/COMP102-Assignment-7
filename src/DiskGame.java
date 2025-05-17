@@ -54,6 +54,7 @@ public class DiskGame{
     private int numDisks = DEFAULT_NUMBER_OF_DISKS;
 
     //Fields for the game state
+    private double brokenDiskScore = 0;
     private double score = 0;                        // current score
     private int shotsRemaining = this.numShots;      // How many shots are left
 
@@ -119,8 +120,8 @@ public class DiskGame{
         while (this.disks.size() < this.numDisks) { // while the disks are less than how many disks there are supposed to be
             double x = Math.random() * GAME_WIDTH; // random x for each disk between the game width
             double y = Math.random() * SHOOTING_RANGE_Y; // random y for each disk between the shooting range
-
-            Disk d = new Disk(x, y); // make a new disk object
+            int damage = 0;
+            Disk d = new Disk(x, y, damage); // make a new disk object
             
             boolean overlaps = false;
             for (Disk newDisk : this.disks) {
@@ -193,11 +194,14 @@ public class DiskGame{
             UI.drawLine(GUN_X, GUN_Y, shotPosX, shotPosY);
             //check if it hits a disk... 
             /*# YOUR CODE HERE */
+            final double brokenScore = 150;
             Disk hit = getHitDisk(shotPosX, shotPosY);
             if (hit != null) {
                 hit.damage();// if hit - damage
                 if (hit.isBroken()) {
                     this.damageNeighbours(hit); // if disk is broken - damage neighbors
+                    brokenDiskScore += brokenScore;
+                    this.disks.remove(hit); // remove broken disk from list
                 }
                 break; // stop shot once hits disk
             }
@@ -288,8 +292,11 @@ public class DiskGame{
         for (Disk disk : disks) { // for each disk count up the score and add it to a total
             totalScore += disk.score();
         }
-        this.score = totalScore; // then update it to the private score declaration
+
+        this.score = totalScore + brokenDiskScore; // then update it to the private score declaration
         System.out.println("Current score: " + this.score);
+        System.out.println("ttl: " + totalScore);
+        System.out.println("brkn: " + brokenDiskScore);
     }
 
 
