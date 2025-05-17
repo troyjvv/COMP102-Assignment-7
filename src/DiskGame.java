@@ -315,7 +315,7 @@ public class DiskGame{
         double shotindX = 5;
         double shotindY = GUN_Y - 10; 
         UI.setColor(Color.red);
-        for (int i = 0; i < numShots; i++) {
+        for (int i = 0; i < shotsRemaining; i++) {
             UI.fillRect(shotindX, shotindY,6, 6);
             shotindX += 8;
 
