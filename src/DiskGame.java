@@ -116,13 +116,24 @@ public class DiskGame{
         /*# YOUR CODE HERE */
         this.disks = new ArrayList<Disk>();
 
-        for (int i = 0; i < this.numDisks; i++) {
+        while (this.disks.size() < this.numDisks) { // while the disks are less than how many disks there are supposed to be
             double x = Math.random() * GAME_WIDTH; // random x for each disk between the game width
             double y = Math.random() * SHOOTING_RANGE_Y; // random y for each disk between the shooting range
 
             Disk d = new Disk(x, y); // make a new disk object
-            this.disks.add(d); // add it to the arrarylist
-            d.draw();
+            
+            boolean overlaps = false;
+            for (Disk newDisk : this.disks) {
+                if (newDisk.isOverlapping(d)) {
+                    overlaps = true;
+                    break;
+                }
+                
+            }
+            if (overlaps == false) {
+                this.disks.add(d); // add it to the arrarylist
+                d.draw();
+            }
         }
     }
 
