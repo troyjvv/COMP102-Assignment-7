@@ -69,9 +69,9 @@ public class Disk {
      * and its damage.
      * Must mirror the second constructor
      */
-    public String toString(double totalscore, int shotsRemaining){
+    public String toString(){
         /*# YOUR CODE HERE */
-        return this.centerX+""+this.centerY+""+this.damage;   // This is for compilation purpose. You will need to fix this.
+         return this.centerX + " " + this.centerY + " " + this.damage;   // This is for compilation purpose. You will need to fix this.
 
     }
 

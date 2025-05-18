@@ -74,6 +74,8 @@ public class DiskGame{
 
         UI.addButton("Save", this::saveGame); // Save game button
         UI.setMouseMotionListener(this::doMouse);
+        UI.addButton("Load", this::loadGame); // Load game button
+        UI.setMouseMotionListener(this::doMouse);
 
         UI.addButton("Quit", UI::quit);
         UI.setDivider(0);
@@ -355,7 +357,27 @@ public class DiskGame{
      */    
     public void loadGame(){
         /*# YOUR CODE HERE */
-
+        System.out.println("Loading Game...");
+        try {
+            this.disks.clear(); // remove all objects 
+            List<String> lines = Files.readAllLines(Path.of(UIFileChooser.open("Filename to load from")));
+            
+            for (int i = 0; i < lines.size() - 1; i++) {  // all lines except the last
+                String line = lines.get(i);
+                Scanner sc = new Scanner(line);
+                double centerX = sc.nextDouble();
+                double centerY = sc.nextDouble();
+                int damage = sc.nextInt();
+                sc.close();
+                this.disks.add(new Disk(centerX, centerY, damage));
+            }
+            Scanner sc = new Scanner(lines.get(lines.size() - 1)); // getting the score and shots remaining then updating
+            this.score = sc.nextDouble();
+            this.shotsRemaining = sc.nextInt();
+            sc.close();
+            redraw(); // redraws.. took way too long trying to figure out what was wrong...
+        }
+        catch(IOException e) {UI.println("File loading has failed: " + e);}
     }
 
     /**
@@ -368,15 +390,12 @@ public class DiskGame{
     public void saveGame(){
         /*# YOUR CODE HERE */
         System.out.println("Saving Game...");
-        String totalScore = Double.toString(score);
-        String remainingShots = Integer.toString(shotsRemaining);
-
         try{
             PrintStream out = new PrintStream(UIFileChooser.save("Filename to save to"));
             for (Disk disk : this.disks) {
                 out.println(disk.toString());
             }
-            out.println(totalScore+" "+remainingShots);
+            out.println(this.score + " " + this.shotsRemaining);
             out.close();
             System.out.println("Game has been saved.");
         }
