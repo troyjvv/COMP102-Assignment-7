@@ -72,6 +72,9 @@ public class DiskGame{
         UI.addButton("Restart", this::startGame);
         UI.setMouseMotionListener(this::doMouse);
 
+        UI.addButton("Save", this::saveGame); // Save game button
+        UI.setMouseMotionListener(this::doMouse);
+
         UI.addButton("Quit", UI::quit);
         UI.setDivider(0);
     }
@@ -364,7 +367,21 @@ public class DiskGame{
      */
     public void saveGame(){
         /*# YOUR CODE HERE */
+        System.out.println("Saving Game...");
+        String totalScore = Double.toString(score);
+        String remainingShots = Integer.toString(shotsRemaining);
 
+        try{
+            PrintStream out = new PrintStream(UIFileChooser.save("Filename to save to"));
+            for (Disk disk : this.disks) {
+                out.println(disk.toString());
+            }
+            out.println(totalScore+" "+remainingShots);
+            out.close();
+            System.out.println("Game has been saved.");
+        }
+        catch(IOException e) {UI.println("File saving has failed: " + e);}
+        
     }
 
     public static void main(String[] args){
